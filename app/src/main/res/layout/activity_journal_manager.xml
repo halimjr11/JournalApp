@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".view.JournalManagerActivity">
+
+    <RelativeLayout
+        android:id="@+id/rl_journal_app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/iv_chevron_left"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentStart="true"
+            android:src="@drawable/ic_chevron_left" />
+
+        <ImageView
+            android:id="@+id/iv_save"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentEnd="true"
+            android:src="@drawable/ic_save" />
+
+        <ImageView
+            android:id="@+id/iv_delete"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="21dp"
+            android:layout_toStartOf="@id/iv_save"
+            android:src="@drawable/ic_delete" />
+
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/et_journal_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:background="@android:color/transparent"
+        android:ems="3"
+        android:fontFamily="@font/nunito"
+        android:hint="@string/label_title"
+        android:inputType="text"
+        android:textColor="@color/white"
+        android:textColorHint="@color/hint_color"
+        android:textSize="32sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rl_journal_app_bar" />
+
+    <EditText
+        android:id="@+id/et_journal_desc"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="32dp"
+        android:background="@android:color/transparent"
+        android:ems="15"
+        android:fontFamily="@font/nunito"
+        android:gravity="start|top"
+        android:hint="@string/label_desc"
+        android:inputType="text|textMultiLine"
+        android:textAlignment="textStart"
+        android:textColor="@color/white"
+        android:textColorHint="@color/hint_color"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/et_journal_title" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
