@@ -28,6 +28,10 @@ class JournalManagerActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         //vm init
+        viewModel = ViewModelProvider(
+            this,
+            ViewModelProvider.AndroidViewModelFactory(application)
+        )[ManageJournalViewModel::class.java]
 
         with(binding) {
             ivDelete.isVisible = isEditData

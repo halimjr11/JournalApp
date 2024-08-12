@@ -2,6 +2,7 @@ package com.phincon.journalapp.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.phincon.journalapp.model.JournalData
 import com.phincon.journalapp.model.JournalModel
 
 class MainViewModel : ViewModel() {
@@ -10,6 +11,6 @@ class MainViewModel : ViewModel() {
     val journalList = _journalList
 
     fun getJournalList() {
-        // set live data
+        _journalList.postValue(JournalData.getJournalList())
     }
 }

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.phincon.journalapp.databinding.ActivityMainBinding
 import com.phincon.journalapp.view.adapter.JournalListAdapter
@@ -16,6 +17,13 @@ class MainActivity : AppCompatActivity() {
     private lateinit var journalAdapter: JournalListAdapter
 
     override fun onResume() {
+        if (this::viewModel.isInitialized.not()) {
+            viewModel = ViewModelProvider(
+                this,
+                ViewModelProvider.AndroidViewModelFactory(application)
+            )[MainViewModel::class.java]
+        }
+        viewModel.getJournalList()
         super.onResume()
     }
 
@@ -23,9 +31,25 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        journalAdapter = JournalListAdapter()
+        journalAdapter = JournalListAdapter().apply {
+            setOnClickListener { data, index ->
+                Intent(this@MainActivity, JournalManagerActivity::class.java).run {
+                    putExtras(
+                        bundleOf(
+                            JournalManagerActivity.MANAGE_EDIT_KEY to true,
+                            JournalManagerActivity.MANAGE_INDEX_KEY to index,
+                            JournalManagerActivity.MANAGE_DATA_KEY to data
+                        )
+                    )
+                    startActivity(this)
+                }
+            }
+        }
 
-        //vm init
+        viewModel = ViewModelProvider(
+            this,
+            ViewModelProvider.AndroidViewModelFactory(application)
+        )[MainViewModel::class.java]
 
         with(binding) {
             rvJournal.run {
@@ -51,7 +75,7 @@ class MainActivity : AppCompatActivity() {
                         llEmptyState.visibility = View.VISIBLE
                         rvJournal.visibility = View.GONE
                     } else {
-                        // init adapter data
+                        journalAdapter.setData(it)
                         llEmptyState.visibility = View.GONE
                         rvJournal.visibility = View.VISIBLE
                     }
